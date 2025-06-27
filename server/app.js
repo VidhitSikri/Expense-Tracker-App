@@ -2,6 +2,7 @@ const dotenv = require("dotenv").config();
 const express = require("express");
 const app = express();
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -20,11 +21,8 @@ app.use(cors({
 
 const connectToDb = require("./db/db");
 connectToDb();
-
-app.get("/", (req, res) => {   
-    res.send("Hello World!");
-}); 
-
+const expenseRoutes = require("./routes/expenses.routes");
+app.use("/api", expenseRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
