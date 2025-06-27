@@ -37,9 +37,40 @@ module.exports.addExpense = async (req, res) => {
 
 
 module.exports.updateExpense = async (req, res) => {
-    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        const { id } = req.params;
+        const { title, amount, description } = req.body;
+        const updatedExpense = await expenseModel.findByIdAndUpdate(
+            id,
+            { title, amount, description },
+            { new: true }
+        );
+        if (!updatedExpense) {
+            return res.status(404).json({ message: 'Expense not found' });
+        }
+        res.status(200).json(updatedExpense);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 
 module.exports.deleteExpense = async (req, res) => {
-
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        const { id } = req.params;
+        const deletedExpense = await expenseModel.findByIdAndDelete(id);
+        if (!deletedExpense) {
+            return res.status(404).json({ message: 'Expense not found' });
+        }
+        res.status(200).json({ message: 'Expense deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
