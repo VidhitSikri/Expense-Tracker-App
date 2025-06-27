@@ -102,7 +102,7 @@ export default function ExpenseTracker() {
         {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-gray-800 mb-3">
-            💰 Expense Tracker
+            Expense Tracker
           </h1>
           <p className="text-gray-600 text-lg">
             Keep track of your daily expenses with ease
