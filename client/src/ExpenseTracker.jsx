@@ -276,32 +276,40 @@ export default function ExpenseTracker() {
                                 {index + 1}
                               </div>
                               <div>
-                                <span className="text-gray-800 font-semibold text-lg">
+                                <span className="text-gray-800 font-semibold text-lg break-words whitespace-normal max-w-xs block">
                                   {expense.title}
                                 </span>
                                 <div className="text-gray-600 font-medium">
                                   ₹{Number(expense.amount).toLocaleString()}
                                 </div>
                                 {expense.description && (
-                                  <div className="text-gray-400 text-sm">
+                                  <div className="text-gray-400 text-sm break-words whitespace-normal max-w-xs block">
                                     {expense.description}
                                   </div>
                                 )}
                               </div>
                             </div>
-                            <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <button
-                                onClick={() => startEditing(expense)}
-                                className="text-blue-600 hover:text-blue-800 px-3 py-2 text-sm border border-blue-200 rounded-lg hover:bg-blue-50 transition-all"
-                              >
-                                ✏️ Edit
-                              </button>
-                              <button
-                                onClick={() => deleteExpense(expense._id)}
-                                className="text-red-600 hover:text-red-800 px-3 py-2 text-sm border border-red-200 rounded-lg hover:bg-red-50 transition-all"
-                              >
-                                🗑️ Delete
-                              </button>
+                            <div className="flex flex-col items-end gap-1">
+                              {/* Show formatted date above buttons */}
+                              {expense.date && (
+                                <div className="text-gray-400 text-xs mb-1">
+                                  {new Date(expense.date).toLocaleDateString()}
+                                </div>
+                              )}
+                              <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                  onClick={() => startEditing(expense)}
+                                  className="text-blue-600 hover:text-blue-800 px-3 py-2 text-sm border border-blue-200 rounded-lg hover:bg-blue-50 transition-all"
+                                >
+                                  ✏️ Edit
+                                </button>
+                                <button
+                                  onClick={() => deleteExpense(expense._id)}
+                                  className="text-red-600 hover:text-red-800 px-3 py-2 text-sm border border-red-200 rounded-lg hover:bg-red-50 transition-all"
+                                >
+                                  🗑️ Delete
+                                </button>
+                              </div>
                             </div>
                           </div>
                         )}
