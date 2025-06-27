@@ -8,7 +8,6 @@ router.get('/expenses', expenseController.getAllExpenses);
 router.post('/expenses', [
     body('title').notEmpty().withMessage('Title is required'),
     body('amount').isNumeric().withMessage('Amount must be a number'),
-    body('date').isISO8601().toDate().withMessage('Date must be a valid date'),
     body('description').optional().isString().withMessage('Description must be a string'),
 ], expenseController.addExpense);
 

@@ -16,7 +16,23 @@ module.exports.getAllExpenses = async (req, res) => {
 
 
 module.exports.addExpense = async (req, res) => {
-
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        const { title, amount,  description } = req.body;
+        const newExpense = new expenseModel({
+            title,
+            amount,
+            date: new Date(), // Automatically set the current date
+            description
+        });
+        await newExpense.save();
+        res.status(201).json(newExpense);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 
 
